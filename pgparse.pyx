@@ -51,7 +51,7 @@ def fingerprint(statement: str) -> str:
 
     :param str statement: The SQL statement to fingerprint
     :rtype: str
-    :raises: :exc:`~pgparse.PGQueryError`
+    :raises: :py:exc:`pgparse.PGQueryError`
 
     """
     cdef PgQueryFingerprintResult result
@@ -74,7 +74,7 @@ def normalize(statement: str) -> str:
 
     :param str statement: The SQL statement to normalize
     :rtype: str
-    :raises: :exc:`~pgparse.PGQueryError`
+    :raises: :py:exc:`pgparse.PGQueryError`
 
     """
     cdef PgQueryNormalizeResult result
@@ -98,7 +98,7 @@ def parse(statement: str) -> list:
 
     :param str statement: The SQL statement to parse
     :rtype: list
-    :raises: :exc:`~pgparse.PGQueryError`
+    :raises: :py:exc:`pgparse.PGQueryError`
 
     """
     cdef PgQueryParseResult result
@@ -122,7 +122,7 @@ def parse_pgsql(function: str) -> list:
 
     :param str function: The SQL function to parse
     :rtype: list
-    :raises: :exc:`~pgparse.PGQueryError`
+    :raises: :py:exc:`pgparse.PGQueryError`
 
     """
     cdef PgQueryPlpgsqlParseResult result
@@ -141,7 +141,12 @@ def parse_pgsql(function: str) -> list:
 
 
 class PGQueryError(Exception):
-    """Raised when invalid or unsupported SQL is parsed"""
+    """Raised when invalid or unsupported SQL is parsed
+
+    :var str message: The message provided by libpg_query
+    :var int position: The position in the query for the error
+
+    """
     def __init__(self, message, position):
         self.message = message
         self.position = position

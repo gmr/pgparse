@@ -8,4 +8,4 @@ python setup.py build_ext --force --inplace --define CYTHON_TRACE_NOGIL
 coverage run setup.py nosetests
 coverage report -m pgparse.pyx
 coverage xml -o build/coverage.xml pgparse.pyx
-git checkout pgparse.pyx pgparse.c
+git checkout pgparse.pyx
