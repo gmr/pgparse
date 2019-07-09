@@ -49,15 +49,7 @@ def fingerprint(statement: str) -> str:
     only because of the specific object that is being queried for
     (i.e. different object ids in the WHERE clause), or because of formatting.
 
-    Example:
-
-    .. code:: python
-
-        import pgparse
-
-        fingerprint = pgparse.fingerprint('SELECT * FROM pg_catalog')
-
-    :param str statement: The SQL statement to figerprint
+    :param str statement: The SQL statement to fingerprint
     :rtype: str
     :raises: :exc:`~pgparse.PGQueryError`
 
@@ -79,15 +71,6 @@ def fingerprint(statement: str) -> str:
 
 def normalize(statement: str) -> str:
     """Normalize a SQL query, replacing values with placeholders
-
-    Example:
-
-    .. code:: python
-
-        import pgparse
-
-        sql = pgparse.normalize('SELECT * FROM foo WHERE bar = 1')
-
 
     :param str statement: The SQL statement to normalize
     :rtype: str
@@ -112,14 +95,6 @@ def normalize(statement: str) -> str:
 def parse(statement: str) -> list:
     """Parse a SQL statement, returning a data structure that represents the
     internal PostgreSQL parse tree for the query.
-
-    Example:
-
-    .. code:: python
-
-        import pgparse
-
-        parsed = pgparse.parse('SELECT * FROM pg_catalog')
 
     :param str statement: The SQL statement to parse
     :rtype: list
