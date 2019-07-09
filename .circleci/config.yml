@@ -70,6 +70,7 @@ jobs:
           name: deploy to pypi
           command: |
             python3 -m venv env
+            ./bootstrap
             source env/bin/activate
             pip3 install cython twine
             USE_CYTHON=1 python setup.py build_ext --force --inplace
