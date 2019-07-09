@@ -41,13 +41,6 @@ iterate through the data of one of the tables.
     pprint.pprint(parsed)
 
 
-Development
-===========
-
-1. Run `./bootstrap` to
-
-
-
 .. |Version| image:: https://img.shields.io/pypi/v/pgparse.svg?
    :target: https://pypi.python.org/pypi/pgparse
    :alt: Package Version
