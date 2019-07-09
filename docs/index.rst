@@ -33,7 +33,7 @@ Indices and tables
    :target: https://pypi.python.org/pypi/pgparse
    :alt: Package Version
 
-.. |Status| image:: https://img.shields.io/circleci/build/gh/gmr/pgparse/master.svg?token=
+.. |Status| image:: https://img.shields.io/circleci/build/gh/gmr/pgparse/master.svg?token=3d274067c09738c1ce3a77650138ee9cc9614cdb
    :target: https://circleci.com/gh/gmr/pgparse/tree/master
    :alt: Build Status
 
