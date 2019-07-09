@@ -7,16 +7,6 @@ The pgparse API is a direct wrapper of the functions provided by
 import json
 
 
-class PGQueryError(Exception):
-    """Raised when invalid or unsupported SQL is parsed"""
-    def __init__(self, message, position):
-        self.message = message
-        self.position = position
-
-    def __str__(self):
-        return '{} at position {}'.format(self.message, self.position)
-
-
 cdef extern from "pg_query.h" nogil:
 
     int PG_VERSION_NUM
@@ -69,7 +59,7 @@ def fingerprint(statement: str) -> str:
 
     :param str statement: The SQL statement to figerprint
     :rtype: str
-    :raises: PGQueryError
+    :raises: :exc:`~pgparse.PGQueryError`
 
     """
     cdef PgQueryFingerprintResult result
@@ -101,7 +91,7 @@ def normalize(statement: str) -> str:
 
     :param str statement: The SQL statement to normalize
     :rtype: str
-    :raises: PGQueryError
+    :raises: :exc:`~pgparse.PGQueryError`
 
     """
     cdef PgQueryNormalizeResult result
@@ -133,7 +123,7 @@ def parse(statement: str) -> list:
 
     :param str statement: The SQL statement to parse
     :rtype: list
-    :raises: PGQueryError
+    :raises: :exc:`~pgparse.PGQueryError`
 
     """
     cdef PgQueryParseResult result
@@ -155,25 +145,9 @@ def parse(statement: str) -> list:
 def parse_pgsql(function: str) -> list:
     """Parse a PL/PgSQL function, returning the internal PostgreSQL parse tree
 
-    Example:
-
-    .. code:: python
-
-        import pgparse
-
-        func = \"\"\"\\
-        CREATE FUNCTION sales_tax(subtotal real) RETURNS real AS $$
-                BEGIN
-                    RETURN subtotal * 0.06;
-                END;
-                $$ LANGUAGE plpgsql;
-        \"\"\"
-        
-        parsed = pgparse.parse_pgsql(func)
-        
     :param str function: The SQL function to parse
     :rtype: list
-    :raises: PGQueryError
+    :raises: :exc:`~pgparse.PGQueryError`
 
     """
     cdef PgQueryPlpgsqlParseResult result
@@ -189,3 +163,13 @@ def parse_pgsql(function: str) -> list:
     finally:
         with nogil:
             pg_query_free_plpgsql_parse_result(result)
+
+
+class PGQueryError(Exception):
+    """Raised when invalid or unsupported SQL is parsed"""
+    def __init__(self, message, position):
+        self.message = message
+        self.position = position
+
+    def __str__(self):
+        return '{} at position {}'.format(self.message, self.position)
