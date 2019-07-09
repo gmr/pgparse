@@ -35,6 +35,4 @@ ext_modules = [
 setuptools.setup(
     cmdclass={'build_ext': BuildExt},
     ext_modules=ext_modules if cythonize is None else
-    cythonize(
-        ext_modules,
-        compiler_directives={'linetrace': bool(os.environ.get('TEST_BUILD'))}))
+    cythonize(ext_modules))
