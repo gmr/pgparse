@@ -18,7 +18,6 @@ Documentation
    :maxdepth: 2
 
    api
-   exceptions
    examples
    history
 
