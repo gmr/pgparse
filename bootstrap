@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+mkdir -p build
+if [ ! -f "./libpg_query/Makefile" ]; then
+    cd libpg_query
+    git submodule init
+    git submodule update
+    cd ..
+fi
+
