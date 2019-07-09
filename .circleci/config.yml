@@ -33,11 +33,10 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            sudo apt-get install -y postgresql libpq-dev
+            sudo apt-get install -y make gcc
             python3 -m venv env
             . env/bin/activate
             pip install -r requires/testing.txt
-            python3 setup.py develop
       - save_cache:
           paths:
             - ./env
@@ -49,14 +48,16 @@ jobs:
           name: run tests
           command: |
             . env/bin/activate
-            nosetests
             flake8 --output build/flake8.txt --tee
+            coverage run setup.py nosetests
+            coverage report -m pgparse.pyx
+            coverage xml -o build/coverage.xml pgparse.pyx
       - run:
           name: upload coverage
           command: |
             . env/bin/activate
             pip install codecov
-            codecov  --file build/coverage.xml
+            codecov --file build/coverage.xml
   deploy:
     docker:
       - image: circleci/python:3.7
@@ -73,6 +74,7 @@ jobs:
           command: |
             python3 -m venv env
             source env/bin/activate
-            pip3 install twine
+            USE_CYTHON=1 python setup.py build_ext -i
             python3 setup.py sdist
+            pip3 install twine
             twine upload dist/*
