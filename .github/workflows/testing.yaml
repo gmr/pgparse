@@ -23,20 +23,11 @@ jobs:
       - name: Setup environment
         run: apk --update add gcc libffi-dev libpq make musl-dev linux-headers
 
-      - name: Setup test/fixture data
-        run: ci/test-setup.sh
-
       - name: Install testing dependencies
         run: pip3 install -r requires/testing.txt
 
-      - name: Install library dependencies
-        run: python3 setup.py develop
-
-      - name: Run flake8 tests
-        run: flake8 --output build/flake8.txt --tee
-
       - name: Run tests
-        run: nosetests -x
+        run: ci/test.sh
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v1.0.2
