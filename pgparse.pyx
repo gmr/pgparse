@@ -1,4 +1,4 @@
-# cython: language_level=3
+# cython: language_level=3, linetrace=True, linetrace=True, linetrace=True
 """
 The pgparse API is a direct wrapper of the functions provided by
 `libpg_query <https://github.com/lfittl/libpg_query/>`_.

@@ -15,6 +15,9 @@ jobs:
       - name: Install Cython
         run: pip3 install cython twine
 
+      - name: Setup environment
+        run: apk --update add bzip2 ca-certificates cyrus-sasl icu-libs libedit libffi libintl openssl perl tzdata asciidoc autoconf automake bison bzip2 clang cmake coreutils cyrus-sasl-dev expat-dev flex curl gcc g++ gdbm gettext-dev git icu-dev libc-dev libedit-dev libffi-dev libxml2-dev libxslt-dev libtool linux-headers llvm8-dev make musl-dev openssl-dev perl-dev python3-dev unzip util-linux-dev xmlto zlib-dev
+
       - name: Build extension
         run: USE_CYTHON=1 python3 setup.py build_ext --force --inplace
 
