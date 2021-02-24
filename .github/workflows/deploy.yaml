@@ -7,16 +7,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'gmr/pgparse' && startsWith(github.event.ref, 'refs/tags')
-    container: python:3.8-alpine
+    container: python:3.9-alpine
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      - name: Install Cython
-        run: pip3 install cython twine
-
       - name: Setup environment
         run: apk --update add gcc git libexecinfo-dev make musl-dev
+
+      - name: Install Cython
+        run: pip3 install cython twine
 
       - name: Build extension
         run: USE_CYTHON=1 python3 setup.py build_ext --force --inplace
