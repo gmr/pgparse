@@ -5,6 +5,7 @@ The pgparse API is a direct wrapper of the functions provided by
 
 """
 import json
+import typing
 
 
 cdef extern from "pg_query.h" nogil:
@@ -49,8 +50,7 @@ def fingerprint(statement: str) -> str:
     only because of the specific object that is being queried for
     (i.e. different object ids in the WHERE clause), or because of formatting.
 
-    :param str statement: The SQL statement to fingerprint
-    :rtype: str
+    :param statement: The SQL statement to fingerprint
     :raises: :py:exc:`pgparse.PGQueryError`
 
     """
@@ -72,8 +72,7 @@ def fingerprint(statement: str) -> str:
 def normalize(statement: str) -> str:
     """Normalize a SQL query, replacing values with placeholders
 
-    :param str statement: The SQL statement to normalize
-    :rtype: str
+    :param statement: The SQL statement to normalize
     :raises: :py:exc:`pgparse.PGQueryError`
 
     """
@@ -92,7 +91,7 @@ def normalize(statement: str) -> str:
             pg_query_free_normalize_result(result)
 
 
-def parse(statement: str) -> list:
+def parse(statement: str) -> typing.List[typing.Dict]:
     """Parse a SQL statement, returning a data structure that represents the
     internal PostgreSQL parse tree for the query.
 
@@ -105,22 +104,20 @@ def parse(statement: str) -> list:
 
     stmt = statement.encode('UTF-8')
     result = pg_query_parse(stmt)
-    if result.error:
-        raise PGQueryError(
-            result.error.message.decode('utf-8'), result.error.cursorpos)
     try:
+        if result.error:
+            raise PGQueryError(
+                result.error.message.decode('utf-8'), result.error.cursorpos)
         return json.loads(result.parse_tree.decode('UTF-8')).get('stmts', [])
     finally:
         with nogil:
             pg_query_free_parse_result(result)
 
 
-
-def parse_pgsql(function: str) -> list:
+def parse_pgsql(function: str) -> typing.List[typing.Dict]:
     """Parse a PL/PgSQL function, returning the internal PostgreSQL parse tree
 
-    :param str function: The SQL function to parse
-    :rtype: list
+    :param function: The SQL function to parse
     :raises: :py:exc:`pgparse.PGQueryError`
 
     """
