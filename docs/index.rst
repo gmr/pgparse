@@ -3,7 +3,7 @@ pgparse
 
 Python wrapper for `libpg_query <https://github.com/lfittl/libpg_query/>`_
 
-|Version| |Status| |Coverage| |License|
+|Version| |Coverage| |License|
 
 Installation
 ------------
