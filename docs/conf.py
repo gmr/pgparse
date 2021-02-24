@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath('..'))
 master_doc = 'index'
 project = 'pgparse'
 release = version = pkg_resources.get_distribution(project).version
-copyright = '{}, Gavin M. Roy'.format(datetime.date.today().year)
+copyright = '2019-{}, Gavin M. Roy'.format(datetime.date.today().year)
 
 extensions = [
     'sphinx.ext.autodoc',
