@@ -16,7 +16,7 @@ jobs:
         run: apk --update add gcc git libexecinfo-dev make musl-dev
 
       - name: Install Cython
-        run: pip3 install cython twine
+        run: pip3 install cython
 
       - name: Build extension
         run: USE_CYTHON=1 python3 setup.py build_ext --force --inplace
