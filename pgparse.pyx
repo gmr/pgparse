@@ -96,8 +96,7 @@ def parse(statement: str) -> list:
     """Parse a SQL statement, returning a data structure that represents the
     internal PostgreSQL parse tree for the query.
 
-    :param str statement: The SQL statement to parse
-    :rtype: list
+    :param statement: The SQL statement to parse
     :raises: :py:exc:`pgparse.PGQueryError`
 
     """
@@ -106,11 +105,11 @@ def parse(statement: str) -> list:
 
     stmt = statement.encode('UTF-8')
     result = pg_query_parse(stmt)
+    if result.error:
+        raise PGQueryError(
+            result.error.message.decode('utf-8'), result.error.cursorpos)
     try:
-        if result.error:
-            raise PGQueryError(
-                result.error.message.decode('utf-8'), result.error.cursorpos)
-        return json.loads(result.parse_tree.decode('UTF-8'))
+        return json.loads(result.parse_tree.decode('UTF-8')).get('stmts', [])
     finally:
         with nogil:
             pg_query_free_parse_result(result)
