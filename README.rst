@@ -45,12 +45,12 @@ iterate through the data of one of the tables.
    :target: https://pypi.python.org/pypi/pgparse
    :alt: Package Version
 
-.. |Coverage| image:: https://codecov.io/gh/gmr/pgparse/branch/master/graph/badge.svg
-   :target: https://codecov.io/github/gmr/pgparse?branch=master
+.. |Coverage| image:: https://codecov.io/gh/gmr/pgparse/branch/main/graph/badge.svg
+   :target: https://codecov.io/github/gmr/pgparse?branch=main
    :alt: Code Coverage
 
 .. |License| image:: https://img.shields.io/pypi/l/pgparse.svg?
-   :target: https://github.com/gmr/pgparse/blob/master/LICENSE
+   :target: https://github.com/gmr/pgparse/blob/main/LICENSE
    :alt: BSD
 
 .. |Docs| image:: https://img.shields.io/readthedocs/pgparse.svg?

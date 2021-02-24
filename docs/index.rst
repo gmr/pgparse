@@ -32,14 +32,10 @@ Indices and tables
    :target: https://pypi.python.org/pypi/pgparse
    :alt: Package Version
 
-.. |Status| image:: https://img.shields.io/circleci/build/gh/gmr/pgparse/master.svg?token=3d274067c09738c1ce3a77650138ee9cc9614cdb
-   :target: https://circleci.com/gh/gmr/pgparse/tree/master
-   :alt: Build Status
-
-.. |Coverage| image:: https://codecov.io/gh/gmr/pgparse/branch/master/graph/badge.svg
-   :target: https://codecov.io/github/gmr/pgparse?branch=master
+.. |Coverage| image:: https://codecov.io/gh/gmr/pgparse/branch/main/graph/badge.svg
+   :target: https://codecov.io/github/gmr/pgparse?branch=main
    :alt: Code Coverage
 
 .. |License| image:: https://img.shields.io/pypi/l/pgparse.svg?
-   :target: https://github.com/gmr/pgparse/blob/master/LICENSE
+   :target: https://github.com/gmr/pgparse/blob/main/LICENSE
    :alt: BSD
