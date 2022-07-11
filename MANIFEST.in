@@ -1,4 +1,6 @@
 include README.rst LICENSE
 include pgparse.pyx pgparse.c
 include libpg_query/LICENSE libpg_query/Makefile libpg_query/pg_query.h
+recursive-include libpg_query/protobuf *.c *.h *.proto
+recursive-include libpg_query/protobuf-c *.c *.h *.proto
 recursive-include libpg_query/src *.c *.h
