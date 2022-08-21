@@ -6,7 +6,8 @@ The pgparse API is a direct wrapper of the functions provided by
 """
 import json
 import typing
-
+import pgparse_proto
+from cpython.bytes cimport PyBytes_FromStringAndSize
 
 cdef extern from "pg_query.h" nogil:
 
@@ -32,15 +33,32 @@ cdef extern from "pg_query.h" nogil:
         char *plpgsql_funcs
         PgQueryError *error
 
+    ctypedef struct PgQueryProtobuf:
+        int len
+        char *data
+
+    ctypedef struct PgQueryProtobufParseResult:
+        PgQueryProtobuf parse_tree
+        char * stderr_buffer
+        PgQueryError *error
+
+    ctypedef struct PgQueryDeparseResult:
+        char *query
+        PgQueryError *error
+
     PgQueryParseResult pg_query_parse(const char* input)
     PgQueryNormalizeResult pg_query_normalize(const char* input)
     PgQueryPlpgsqlParseResult pg_query_parse_plpgsql(const char* input)
     PgQueryFingerprintResult pg_query_fingerprint(const char* input)
+    PgQueryProtobufParseResult pg_query_parse_protobuf(const char* input)
+    PgQueryDeparseResult pg_query_deparse_protobuf(PgQueryProtobuf parse_tree)
 
     void pg_query_free_normalize_result(PgQueryNormalizeResult result)
     void pg_query_free_parse_result(PgQueryParseResult result)
     void pg_query_free_plpgsql_parse_result(PgQueryPlpgsqlParseResult result)
     void pg_query_free_fingerprint_result(PgQueryFingerprintResult result)
+    void pg_query_free_protobuf_parse_result(PgQueryProtobufParseResult result)
+    void pg_query_free_deparse_result(PgQueryDeparseResult result)
 
 
 def fingerprint(statement: str) -> str:
@@ -134,6 +152,54 @@ def parse_pgsql(function: str) -> typing.List[typing.Dict]:
     finally:
         with nogil:
             pg_query_free_plpgsql_parse_result(result)
+
+
+def parse_protobuf(statement: str) -> pgparse_proto.ParseResult:
+    """Parse a SQL statement, returning a protobuf object
+
+    :param statement: The SQL statement to parse
+    :raises: :py:exc:`pgparse.PGQueryError`
+
+    """
+    cdef PgQueryProtobufParseResult result
+    cdef bytes stmt
+
+    stmt = statement.encode('UTF-8')
+    result = pg_query_parse_protobuf(stmt)
+    try:
+        if result.error:
+            raise PGQueryError(
+                result.error.message.decode('utf-8'), result.error.cursorpos)
+        pbbarray = PyBytes_FromStringAndSize(result.parse_tree.data, result.parse_tree.len)
+        return pgparse_proto.ParseResult().FromString(pbbarray)
+    finally:
+            with nogil:
+                pg_query_free_protobuf_parse_result(result)
+
+
+def deparse_protobuf(parse_tree: pgparse_proto.ParseResult) -> str:
+    """Deparse a protobuf object, returning an SQL statement
+
+    :param parse_tree: Object to deparse
+    :raises: :py:exc:`pgparse.PGQueryError`
+
+    """
+    cdef PgQueryDeparseResult result
+    cdef PgQueryProtobuf serialized_parse_tree
+
+    serialized_bytes = parse_tree.SerializeToString()
+    serialized_parse_tree.data = serialized_bytes
+    serialized_parse_tree.len = len(serialized_bytes)
+
+    result = pg_query_deparse_protobuf(serialized_parse_tree)
+    try:
+        if result.error:
+            raise PGQueryError(
+                result.error.message.decode('utf-8'), result.error.cursorpos)
+        return result.query.decode('utf-8')
+    finally:
+            with nogil:
+                pg_query_free_deparse_result(result)
 
 
 class PGQueryError(Exception):
