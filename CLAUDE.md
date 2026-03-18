@@ -49,10 +49,6 @@ USE_CYTHON=1 uv run python setup.py build_ext --inplace
 
 `setup.py` auto-runs `make -C libpg_query build` if `libpg_query.a` is missing.
 
-## Versioning
-
-The package version in `pyproject.toml` mirrors the libpg_query release tag: `17-6.2.2` → `17.6.2.2`.
-
 ## libpg_query Submodule
 
 The submodule tracks `origin/17-latest`. Postgres 18 support exists only on the upstream `18-latest-dev` branch (no stable release yet). To update:

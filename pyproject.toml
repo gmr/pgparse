@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pgparse"
-version = "17.6.2.2"
+version = "1.0.0"
 description = "Python wrapper for libpg_query"
 readme = "README.md"
 license = "BSD-3-Clause"
