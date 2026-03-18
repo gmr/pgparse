@@ -9,7 +9,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **`pgparse.pyx`** — Cython source; defines `parse()`, `normalize()`, `fingerprint()`, `parse_pgsql()`, and `PGQueryError`
 - **`pgparse.c`** — pre-generated C file; built by Cython from `pgparse.pyx`; committed so the extension can be compiled without Cython installed
 - **`libpg_query/`** — git submodule tracking the `17-latest` branch; provides `pg_query.h` and builds `libpg_query.a`
-- **`setup.py`** — thin build hook; compiles `libpg_query.a` via `make` if absent, then builds the Cython extension
 
 ## Common Commands
 
@@ -35,19 +34,18 @@ uv run pytest tests/test_parse.py::TestCase::test_happy_path
 
 ## Building the Extension
 
-The extension must be compiled before tests can run. `just test` does this automatically via `just build-ext`. To build manually:
+The extension must be compiled before tests can run. `just test` handles this automatically. To build manually:
 
 ```sh
-uv run python setup.py build_ext --inplace
+make -C libpg_query                                  # build libpg_query.a first
+uv pip install --no-build-isolation --editable .     # build and install the extension
 ```
 
-Set `USE_CYTHON=1` to transpile from `.pyx` → `.c` before compiling (requires Cython in the dev group):
+The ext-module is configured in `[tool.setuptools]` in `pyproject.toml` and always builds from the pre-generated `pgparse.c`. To regenerate `pgparse.c` from `pgparse.pyx` (requires Cython in the dev group):
 
 ```sh
-USE_CYTHON=1 uv run python setup.py build_ext --inplace
+just generate
 ```
-
-`setup.py` auto-runs `make -C libpg_query build` if `libpg_query.a` is missing.
 
 ## libpg_query Submodule
 

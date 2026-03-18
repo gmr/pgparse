@@ -15,13 +15,13 @@ bootstrap: setup
 build-libpg-query:
     make -C libpg_query
 
-# Regenerate pgparse.c from pgparse.pyx (requires Cython)
+# Regenerate pgparse.c from pgparse.pyx (requires Cython in dev group)
 generate: build-libpg-query
-    USE_CYTHON=1 uv run python setup.py build_ext --inplace
+    uv run cython pgparse.pyx
 
-# Build the extension in-place for testing
+# Build the extension and install in editable mode for testing
 build-ext: build-libpg-query
-    uv run python setup.py build_ext --inplace
+    uv pip install --no-build-isolation --editable .
 
 # Run tests with coverage
 test: build-ext
@@ -33,8 +33,8 @@ lint:
     uv run pre-commit run --all-files
 
 # Build distribution wheels
-build:
-    USE_CYTHON=1 uv run python -m build
+build: build-libpg-query
+    uv run python -m build --no-isolation
 
 # Build documentation
 docs:
