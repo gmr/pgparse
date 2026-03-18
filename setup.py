@@ -34,6 +34,7 @@ ext = setuptools.Extension(
     include_dirs=[LIBPG_QUERY],
     library_dirs=[LIBPG_QUERY],
     libraries=libraries,
+    define_macros=[('CYTHON_TRACE', '1')],
 )
 
 if os.getenv('USE_CYTHON'):

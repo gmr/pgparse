@@ -26,7 +26,9 @@ class TestCase(unittest.TestCase):
                                 'location': -1,
                                 'node': {
                                     'ColumnRef': {
-                                        'fields': [{'String': {'str': 'bar'}}],
+                                        'fields': [
+                                            {'String': {'sval': 'bar'}}
+                                        ],
                                         'location': 27,
                                     }
                                 },
