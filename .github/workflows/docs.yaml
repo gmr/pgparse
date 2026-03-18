@@ -7,7 +7,7 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
-      - 'libpq_query/**'
+      - 'libpg_query/**'
       - '.github/workflows/docs.yaml'
       - 'pyproject.toml'
   workflow_dispatch:
@@ -26,21 +26,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: |
-          ci/calculate-version
-          python -m pip install --upgrade pip
-          pip install -e '.[docs]'
+        run: uv sync --group docs
 
       - name: Build documentation
-        run: mkdocs build --strict
+        run: uv run mkdocs build --strict
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
