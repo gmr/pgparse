@@ -36,9 +36,6 @@ jobs:
       - name: Sync dependencies
         run: uv sync --group dev
 
-      - name: Build extension
-        run: uv run python setup.py build_ext --inplace
-
       - name: Lint check
         run: uv run pre-commit run --all-files
 
