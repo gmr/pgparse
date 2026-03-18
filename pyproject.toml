@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 packages = []
 ext-modules = [
-    {name = "pgparse", sources = ["pgparse.c"], include-dirs = ["libpg_query"], library-dirs = ["libpg_query"], libraries = ["pg_query"], define-macros = [["CYTHON_TRACE", "1"]]},
+    {name = "pgparse", sources = ["pgparse.c"], include-dirs = ["libpg_query"], library-dirs = ["libpg_query"], libraries = ["pg_query"], define-macros = [["Py_LIMITED_API", "0x030B0000"]], py-limited-api = true},
 ]
 
 [project]
@@ -64,7 +64,6 @@ show_missing = true
 [tool.coverage.run]
 branch = true
 source = ["pgparse"]
-plugins = ["Cython.Coverage"]
 
 [tool.coverage.xml]
 output = "build/coverage.xml"

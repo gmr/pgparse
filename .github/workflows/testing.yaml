@@ -91,8 +91,9 @@ jobs:
         env:
           CIBW_ARCHS: ${{ matrix.cibw-archs }}
           CIBW_BEFORE_ALL: "make -C libpg_query"
-          CIBW_BUILD: "cp313-*"
+          CIBW_BUILD: "cp311-*"
           CIBW_SKIP: ${{ matrix.cibw-skip }}
+          CIBW_CONFIG_SETTINGS: "--build-option=--py-limited-api=cp311"
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v7

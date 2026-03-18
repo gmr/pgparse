@@ -42,8 +42,9 @@ jobs:
         env:
           CIBW_ARCHS: ${{ matrix.cibw-archs }}
           CIBW_BEFORE_ALL: "make -C libpg_query"
-          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-*"
+          CIBW_BUILD: "cp311-*"
           CIBW_SKIP: "*-win32"
+          CIBW_CONFIG_SETTINGS: "--build-option=--py-limited-api=cp311"
 
       - name: Upload wheels
         uses: actions/upload-artifact@v7

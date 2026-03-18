@@ -18,7 +18,7 @@ Python bindings for [libpg_query](https://github.com/lfittl/libpg_query/), expos
 pip install pgparse
 ```
 
-Wheels are provided for Linux (x86_64, aarch64) and macOS (x86_64, arm64) on Python 3.11–3.14. Installing from source requires `gcc`, `make`, and the libpg_query build dependencies.
+Wheels are provided for Linux (manylinux and musllinux, x86_64 and aarch64) and macOS (arm64) for Python 3.11+ via the stable ABI (abi3). Installing from source requires `gcc`, `make`, and the libpg_query build dependencies.
 
 ## Usage
 
