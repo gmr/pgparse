@@ -52,8 +52,30 @@ jobs:
           name: wheels-${{ matrix.os }}-${{ matrix.cibw-archs }}
           path: ./wheelhouse/
 
+  sdist:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.repository == 'gmr/pgparse' && startsWith(github.event.ref, 'refs/tags')
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
+      - name: Build sdist
+        run: uv run python -m build --sdist
+
+      - name: Upload sdist
+        uses: actions/upload-artifact@v7
+        with:
+          name: sdist
+          path: ./dist/*.tar.gz
+
   publish:
-    needs: build
+    needs: [build, sdist]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'gmr/pgparse' && startsWith(github.event.ref, 'refs/tags')
 
