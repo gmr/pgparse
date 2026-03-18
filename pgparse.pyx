@@ -1,4 +1,4 @@
-# cython: language_level=3, linetrace=True, linetrace=True, linetrace=True
+# cython: language_level=3, linetrace=True
 """
 The pgparse API is a direct wrapper of the functions provided by
 `libpg_query <https://github.com/lfittl/libpg_query/>`_.
@@ -12,12 +12,15 @@ cdef extern from "pg_query.h" nogil:
 
     int PG_VERSION_NUM
 
+    ctypedef unsigned long long uint64_t
+
     ctypedef struct PgQueryError:
         char *message
         int cursorpos
 
     ctypedef struct PgQueryFingerprintResult:
         char *hexdigest
+        char *stderr_buffer
         PgQueryError *error
 
     ctypedef struct PgQueryNormalizeResult:
@@ -91,7 +94,7 @@ def normalize(statement: str) -> str:
             pg_query_free_normalize_result(result)
 
 
-def parse(statement: str) -> typing.List[typing.Dict]:
+def parse(statement: str) -> list[dict]:
     """Parse a SQL statement, returning a data structure that represents the
     internal PostgreSQL parse tree for the query.
 

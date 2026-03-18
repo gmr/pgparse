@@ -12,39 +12,42 @@ class TestCase(unittest.TestCase):
             END;
             $$ LANGUAGE plpgsql;"""
         result = pgparse.parse_pgsql(definition)
-        expectation = [{
-            'PLpgSQL_function': {
-                'action': {
-                    'PLpgSQL_stmt_block': {
-                        'body': [{
-                            'PLpgSQL_stmt_return': {
-                                'expr': {
-                                    'PLpgSQL_expr': {
-                                        'query': 'SELECT '
-                                        'subtotal '
-                                        '* '
-                                        '0.06'
+        expectation = [
+            {
+                'PLpgSQL_function': {
+                    'action': {
+                        'PLpgSQL_stmt_block': {
+                            'body': [
+                                {
+                                    'PLpgSQL_stmt_return': {
+                                        'expr': {
+                                            'PLpgSQL_expr': {
+                                                'query': 'SELECT '
+                                                'subtotal '
+                                                '* '
+                                                '0.06'
+                                            }
+                                        },
+                                        'lineno': 3,
                                     }
+                                }
+                            ],
+                            'lineno': 2,
+                        }
+                    },
+                    'datums': [
+                        {
+                            'PLpgSQL_var': {
+                                'datatype': {
+                                    'PLpgSQL_type': {'typname': 'UNKNOWN'}
                                 },
-                                'lineno': 3
+                                'refname': 'found',
                             }
-                        }],
-                        'lineno':
-                        2
-                    }
-                },
-                'datums': [{
-                    'PLpgSQL_var': {
-                        'datatype': {
-                            'PLpgSQL_type': {
-                                'typname': 'UNKNOWN'
-                            }
-                        },
-                        'refname': 'found'
-                    }
-                }]
+                        }
+                    ],
+                }
             }
-        }]
+        ]
         for offset in range(0, len(expectation)):
             self.assertDictEqual(result[offset], expectation[0])
 

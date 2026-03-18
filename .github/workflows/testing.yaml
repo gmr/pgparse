@@ -1,40 +1,54 @@
 name: Testing
 on:
+  pull_request:
   push:
     branches: ["*"]
     paths-ignore:
       - 'docs/**'
-      - 'setup.*'
       - '*.md'
       - '*.rst'
     tags-ignore: ["*"]
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python: [3.7, 3.8, 3.9]
-    container:
-      image: python:${{ matrix.python }}-alpine
+        python: ["3.11", "3.12", "3.13", "3.14"]
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Setup environment
-        run: apk --update add gcc git libexecinfo-dev make musl-dev
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make protobuf-compiler
 
-      - name: Bootstrap the project
-        run: ./bootstrap
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "${{ matrix.python }}"
 
-      - name: Install testing dependencies
-        run: pip3 install -r requires/testing.txt
+      - name: Sync dependencies
+        run: uv sync --group dev
+
+      - name: Build extension
+        run: uv run python setup.py build_ext --inplace
+
+      - name: Lint check
+        run: uv run pre-commit run --all-files
 
       - name: Run tests
-        run: ci/test.sh
+        run: |
+          mkdir -p build
+          uv run pytest --cov --cov-report=term-missing --cov-report=xml:build/coverage.xml
 
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v1.0.2
-        if: github.event_name == 'push' && github.repository == 'gmr/pgparse'
+      - name: Upload coverage
+        uses: codecov/codecov-action@v5
         with:
-          token: ${{secrets.CODECOV_TOKEN}}
-          file: build/coverage.xml
+          files: ./build/coverage.xml
+          flags: unittests

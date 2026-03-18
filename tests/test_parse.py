@@ -8,46 +8,46 @@ class TestCase(unittest.TestCase):
         expectation = {
             'stmt': {
                 'SelectStmt': {
-                    'fromClause': [{
-                        'RangeVar': {
-                            'inh': True,
-                            'location': 14,
-                            'relname': 'foo',
-                            'relpersistence': 'p'
-                        }
-                    }],
-                    'limitOption': 'LIMIT_OPTION_DEFAULT',
-                    'op': 'SETOP_NONE',
-                    'sortClause': [{
-                        'SortBy': {
-                            'location': -1,
-                            'node': {
-                                'ColumnRef': {
-                                    'fields': [{
-                                        'String': {
-                                            'str': 'bar'
-                                        }
-                                    }],
-                                    'location': 27
-                                }
-                            },
-                            'sortby_dir': 'SORTBY_DEFAULT',
-                            'sortby_nulls': 'SORTBY_NULLS_DEFAULT'
-                        }
-                    }],
-                    'targetList': [{
-                        'ResTarget': {
-                            'location': 7,
-                            'val': {
-                                'ColumnRef': {
-                                    'fields': [{
-                                        'A_Star': {}
-                                    }],
-                                    'location': 7
-                                }
+                    'fromClause': [
+                        {
+                            'RangeVar': {
+                                'inh': True,
+                                'location': 14,
+                                'relname': 'foo',
+                                'relpersistence': 'p',
                             }
                         }
-                    }]
+                    ],
+                    'limitOption': 'LIMIT_OPTION_DEFAULT',
+                    'op': 'SETOP_NONE',
+                    'sortClause': [
+                        {
+                            'SortBy': {
+                                'location': -1,
+                                'node': {
+                                    'ColumnRef': {
+                                        'fields': [{'String': {'str': 'bar'}}],
+                                        'location': 27,
+                                    }
+                                },
+                                'sortby_dir': 'SORTBY_DEFAULT',
+                                'sortby_nulls': 'SORTBY_NULLS_DEFAULT',
+                            }
+                        }
+                    ],
+                    'targetList': [
+                        {
+                            'ResTarget': {
+                                'location': 7,
+                                'val': {
+                                    'ColumnRef': {
+                                        'fields': [{'A_Star': {}}],
+                                        'location': 7,
+                                    }
+                                },
+                            }
+                        }
+                    ],
                 }
             }
         }
@@ -64,4 +64,5 @@ class TestCase(unittest.TestCase):
             pgparse.parse_pgsql('FOO FROM BAR')
         except pgparse.PGQueryError as error:
             self.assertEqual(
-                str(error), 'syntax error at or near "FOO" at position 1')
+                str(error), 'syntax error at or near "FOO" at position 1'
+            )
