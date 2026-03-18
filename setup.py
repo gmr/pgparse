@@ -19,8 +19,8 @@ class BuildExt(setuptools.command.build_ext.build_ext):
     def run(self):
         libpg_query_dir = pathlib.Path(__file__).parent / LIBPG_QUERY
         if not (libpg_query_dir / 'libpg_query.a').exists():
-            subprocess.run(
-                ['make', '-C', str(libpg_query_dir), 'build'],
+            subprocess.run(  # noqa: S603
+                ['make', '-C', str(libpg_query_dir), 'build'],  # noqa: S607
                 check=True,
             )
         super().run()
@@ -38,6 +38,7 @@ ext = setuptools.Extension(
 
 if os.getenv('USE_CYTHON'):
     import Cython.Build
+
     ext_modules = Cython.Build.cythonize(
         [ext],
         compiler_directives={
