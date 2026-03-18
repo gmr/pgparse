@@ -1,11 +1,16 @@
 # pgparse
 
-Python wrapper for [libpg_query](https://github.com/lfittl/libpg_query/)
+Python bindings for [libpg_query](https://github.com/lfittl/libpg_query/), exposing PostgreSQL's internal parser to Python. Parse, normalize, and fingerprint SQL statements using the same parser that PostgreSQL itself uses.
 
 [![Version](https://img.shields.io/pypi/v/pgparse.svg)](https://pypi.python.org/pypi/pgparse)
 [![Coverage](https://codecov.io/gh/gmr/pgparse/branch/main/graph/badge.svg)](https://codecov.io/github/gmr/pgparse?branch=main)
 [![License](https://img.shields.io/pypi/l/pgparse.svg)](https://github.com/gmr/pgparse/blob/main/LICENSE)
-[![Docs](https://img.shields.io/readthedocs/pgparse.svg)](https://pgparse.readthedocs.io/)
+
+## PostgreSQL Compatibility
+
+| pgparse | libpg_query | PostgreSQL |
+|---------|-------------|------------|
+| 1.x     | 17-latest   | 17         |
 
 ## Installation
 
@@ -13,33 +18,72 @@ Python wrapper for [libpg_query](https://github.com/lfittl/libpg_query/)
 pip install pgparse
 ```
 
-## Example Usage
+Wheels are provided for Linux (x86_64, aarch64) and macOS (x86_64, arm64) on Python 3.11–3.14. Installing from source requires `gcc`, `make`, and the libpg_query build dependencies.
 
-The following example shows how to create a dump and then read it in, and
-iterate through the data of one of the tables.
+## Usage
+
+### Parse
+
+Returns the internal PostgreSQL parse tree as a list of statement dicts:
 
 ```python
-import pprint
-
 import pgparse
 
-sql = "SELECT * FROM pg_catalog.pg_class WHERE relname = 'foo'"
-print('Fingerprint: {}'.format(pgparse.fingerprint(sql)))
-print('Normalized: {!r}'.format(pgparse.normalize(sql)))
-parsed = pgparse.parse(sql)
-pprint.pprint(parsed)
+result = pgparse.parse("SELECT * FROM orders WHERE id = 1")
+# [{'stmt': {'SelectStmt': {...}}}]
+```
 
-func = """\
+### Normalize
+
+Replaces literal values with positional placeholders — useful for query grouping and log analysis:
+
+```python
+pgparse.normalize("SELECT * FROM orders WHERE id = 1")
+# "SELECT * FROM orders WHERE id = $1"
+
+pgparse.normalize("SELECT * FROM orders WHERE id = 2")
+# "SELECT * FROM orders WHERE id = $1"
+```
+
+### Fingerprint
+
+Produces a stable hash that is identical for structurally equivalent queries regardless of literal values or formatting:
+
+```python
+pgparse.fingerprint("SELECT * FROM orders WHERE id = 1")
+# "0357e3db3ead2de761ea5c0f064bfddc0048cad5eb"
+
+pgparse.fingerprint("SELECT * FROM orders WHERE id = 99")
+# "0357e3db3ead2de761ea5c0f064bfddc0048cad5eb"  # same fingerprint
+```
+
+### Parse PL/pgSQL
+
+Parse a PL/pgSQL function body:
+
+```python
+func = """
 CREATE FUNCTION sales_tax(subtotal real) RETURNS real AS $$
-        BEGIN
-            RETURN subtotal * 0.06;
-        END;
-        $$ LANGUAGE plpgsql;
+    BEGIN
+        RETURN subtotal * 0.06;
+    END;
+$$ LANGUAGE plpgsql;
 """
-parsed = pgparse.parse_pgsql(func)
-pprint.pprint(parsed)
+result = pgparse.parse_pgsql(func)
+```
+
+### Error Handling
+
+Invalid SQL raises `pgparse.PGQueryError` with the error message and cursor position:
+
+```python
+try:
+    pgparse.parse("SELECT FROM WHERE")
+except pgparse.PGQueryError as e:
+    print(e.message)   # syntax error at or near "WHERE"
+    print(e.position)  # 13
 ```
 
 ## Documentation
 
-For full API documentation and examples, see the [documentation](https://pgparse.readthedocs.io/).
+Full API reference and examples: [gmr.github.io/pgparse](https://gmr.github.io/pgparse/)
