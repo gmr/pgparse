@@ -89,7 +89,12 @@ jobs:
           CIBW_BUILD: "cp313-*"
           CIBW_SKIP: "*-win32"
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+
       - name: Verify wheel
         run: |
-          pip install wheelhouse/*.whl
+          uv pip install --system wheelhouse/*.whl
           python -c "import pgparse; print(pgparse.fingerprint('SELECT 1'))"
