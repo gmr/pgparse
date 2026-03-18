@@ -11,6 +11,7 @@ LIBPG_QUERY = 'libpg_query'
 libraries = ['pg_query']
 if 'musl' in sysconfig.get_config_var('BUILD_GNU_TYPE'):
     import ctypes.util
+
     if ctypes.util.find_library('execinfo'):
         libraries.append('execinfo')
 
