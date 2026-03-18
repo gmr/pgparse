@@ -94,13 +94,15 @@ jobs:
           CIBW_BUILD: ${{ matrix.cibw-build }}
           CIBW_CONFIG_SETTINGS: "--build-option=--py-limited-api=cp311"
 
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v7
-        with:
-          python-version: "3.13"
-
-      - name: Verify wheel
+      - name: Verify wheel (native)
+        if: "!contains(matrix.cibw-build, 'musllinux')"
         run: |
-          uv venv /tmp/verify
-          uv pip install --python /tmp/verify wheelhouse/*.whl
+          pipx run uv venv --python 3.13 /tmp/verify
+          pipx run uv pip install --python /tmp/verify wheelhouse/*.whl
           /tmp/verify/bin/python -c "import pgparse; print(pgparse.fingerprint('SELECT 1'))"
+
+      - name: Verify wheel (musllinux via Docker)
+        if: contains(matrix.cibw-build, 'musllinux')
+        run: |
+          docker run --rm -v "$PWD/wheelhouse:/wheels" python:3.13-alpine \
+            sh -c "pip install /wheels/*.whl && python -c \"import pgparse; print(pgparse.fingerprint('SELECT 1'))\""
