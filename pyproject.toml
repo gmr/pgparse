@@ -10,7 +10,7 @@ ext-modules = [
 
 [project]
 name = "pgparse"
-version = "1.0.1"
+version = "1.0.2"
 description = "Python wrapper for libpg_query"
 readme = "README.md"
 license = "BSD-3-Clause"
