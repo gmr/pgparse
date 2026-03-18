@@ -19,8 +19,8 @@ cdef extern from "pg_query.h" nogil:
         int cursorpos
 
     ctypedef struct PgQueryFingerprintResult:
-        char *hexdigest
-        char *stderr_buffer
+        uint64_t fingerprint
+        char *fingerprint_str
         PgQueryError *error
 
     ctypedef struct PgQueryNormalizeResult:
@@ -66,7 +66,7 @@ def fingerprint(statement: str) -> str:
         if result.error:
             raise PGQueryError(
                 result.error.message.decode('utf-8'), result.error.cursorpos)
-        return result.hexdigest.decode('UTF-8')
+        return result.fingerprint_str.decode('UTF-8')
     finally:
         with nogil:
             pg_query_free_fingerprint_result(result)

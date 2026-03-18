@@ -3271,7 +3271,7 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
 */
     __Pyx_TraceLine(69,28,0,__PYX_ERR(0, 69, __pyx_L4_error))
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_6 = __pyx_v_result.hexdigest;
+    __pyx_t_6 = __pyx_v_result.fingerprint_str;
     __pyx_t_7 = __Pyx_ssize_strlen(__pyx_t_6); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 69, __pyx_L4_error)
     __pyx_t_1 = __Pyx_decode_c_string(__pyx_t_6, 0, __pyx_t_7, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L4_error)
     __Pyx_GOTREF(__pyx_t_1);
