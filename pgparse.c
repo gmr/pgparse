@@ -2554,15 +2554,15 @@ return 0;
 /* #### Code section: module_code ### */
 
 /* "pgparse.pyx":49
- * 
- * 
+ *
+ *
  * def fingerprint(statement: str) -> str:             # <<<<<<<<<<<<<<
  *     """Fingerprint a SQL statement
- * 
+ *
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pgparse_1fingerprint(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_1fingerprint(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2571,7 +2571,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ); /*proto*/
 PyDoc_STRVAR(__pyx_doc_7pgparse_fingerprint, "Fingerprint a SQL statement\n\n    Fingerprinting allows you to identify similar queries that are different\n    only because of the specific object that is being queried for\n    (i.e. different object ids in the WHERE clause), or because of formatting.\n\n    :param statement: The SQL statement to fingerprint\n    :raises: :py:exc:`pgparse.PGQueryError`\n\n    ");
 static PyMethodDef __pyx_mdef_7pgparse_1fingerprint = {"fingerprint", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pgparse_1fingerprint, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_7pgparse_fingerprint};
-static PyObject *__pyx_pw_7pgparse_1fingerprint(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_1fingerprint(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2689,7 +2689,7 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
 
   /* "pgparse.pyx":63
  *     cdef bytes stmt
- * 
+ *
  *     stmt = statement.encode('UTF-8')             # <<<<<<<<<<<<<<
  *     result = pg_query_fingerprint(stmt)
  *     try:
@@ -2700,7 +2700,7 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_t_1 = 0;
 
   /* "pgparse.pyx":64
- * 
+ *
  *     stmt = statement.encode('UTF-8')
  *     result = pg_query_fingerprint(stmt)             # <<<<<<<<<<<<<<
  *     try:
@@ -2810,7 +2810,7 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_fingerprint_result(result)
- * 
+ *
 */
   /*finally:*/ {
     __pyx_L4_error:;
@@ -2843,8 +2843,8 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
  *     finally:
  *         with nogil:
  *             pg_query_free_fingerprint_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
               pg_query_free_fingerprint_result(__pyx_v_result);
             }
@@ -2854,7 +2854,7 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_fingerprint_result(result)
- * 
+ *
 */
             /*finally:*/ {
               /*normal exit:*/{
@@ -2891,8 +2891,8 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
  *     finally:
  *         with nogil:
  *             pg_query_free_fingerprint_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
             pg_query_free_fingerprint_result(__pyx_v_result);
           }
@@ -2902,7 +2902,7 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_fingerprint_result(result)
- * 
+ *
 */
           /*finally:*/ {
             /*normal exit:*/{
@@ -2920,11 +2920,11 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
   }
 
   /* "pgparse.pyx":49
- * 
- * 
+ *
+ *
  * def fingerprint(statement: str) -> str:             # <<<<<<<<<<<<<<
  *     """Fingerprint a SQL statement
- * 
+ *
 */
 
   /* function exit code */
@@ -2944,15 +2944,15 @@ static PyObject *__pyx_pf_7pgparse_fingerprint(CYTHON_UNUSED PyObject *__pyx_sel
 }
 
 /* "pgparse.pyx":75
- * 
- * 
+ *
+ *
  * def normalize(statement: str) -> str:             # <<<<<<<<<<<<<<
  *     """Normalize a SQL query, replacing values with placeholders
- * 
+ *
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pgparse_3normalize(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_3normalize(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -2961,7 +2961,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ); /*proto*/
 PyDoc_STRVAR(__pyx_doc_7pgparse_2normalize, "Normalize a SQL query, replacing values with placeholders\n\n    :param statement: The SQL statement to normalize\n    :raises: :py:exc:`pgparse.PGQueryError`\n\n    ");
 static PyMethodDef __pyx_mdef_7pgparse_3normalize = {"normalize", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pgparse_3normalize, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_7pgparse_2normalize};
-static PyObject *__pyx_pw_7pgparse_3normalize(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_3normalize(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3079,7 +3079,7 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
 
   /* "pgparse.pyx":85
  *     cdef bytes stmt
- * 
+ *
  *     stmt = statement.encode('UTF-8')             # <<<<<<<<<<<<<<
  *     result = pg_query_normalize(stmt)
  *     try:
@@ -3090,7 +3090,7 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
   __pyx_t_1 = 0;
 
   /* "pgparse.pyx":86
- * 
+ *
  *     stmt = statement.encode('UTF-8')
  *     result = pg_query_normalize(stmt)             # <<<<<<<<<<<<<<
  *     try:
@@ -3200,7 +3200,7 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_normalize_result(result)
- * 
+ *
 */
   /*finally:*/ {
     __pyx_L4_error:;
@@ -3233,8 +3233,8 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
  *     finally:
  *         with nogil:
  *             pg_query_free_normalize_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
               pg_query_free_normalize_result(__pyx_v_result);
             }
@@ -3244,7 +3244,7 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_normalize_result(result)
- * 
+ *
 */
             /*finally:*/ {
               /*normal exit:*/{
@@ -3281,8 +3281,8 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
  *     finally:
  *         with nogil:
  *             pg_query_free_normalize_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
             pg_query_free_normalize_result(__pyx_v_result);
           }
@@ -3292,7 +3292,7 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_normalize_result(result)
- * 
+ *
 */
           /*finally:*/ {
             /*normal exit:*/{
@@ -3310,11 +3310,11 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
   }
 
   /* "pgparse.pyx":75
- * 
- * 
+ *
+ *
  * def normalize(statement: str) -> str:             # <<<<<<<<<<<<<<
  *     """Normalize a SQL query, replacing values with placeholders
- * 
+ *
 */
 
   /* function exit code */
@@ -3334,15 +3334,15 @@ static PyObject *__pyx_pf_7pgparse_2normalize(CYTHON_UNUSED PyObject *__pyx_self
 }
 
 /* "pgparse.pyx":97
- * 
- * 
+ *
+ *
  * def parse(statement: str) -> list[dict]:             # <<<<<<<<<<<<<<
  *     """Parse a SQL statement, returning a data structure that represents the
  *     internal PostgreSQL parse tree for the query.
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pgparse_5parse(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_5parse(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3351,7 +3351,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ); /*proto*/
 PyDoc_STRVAR(__pyx_doc_7pgparse_4parse, "Parse a SQL statement, returning a data structure that represents the\n    internal PostgreSQL parse tree for the query.\n\n    :param statement: The SQL statement to parse\n    :raises: :py:exc:`pgparse.PGQueryError`\n\n    ");
 static PyMethodDef __pyx_mdef_7pgparse_5parse = {"parse", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pgparse_5parse, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_7pgparse_4parse};
-static PyObject *__pyx_pw_7pgparse_5parse(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_5parse(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3470,7 +3470,7 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
 
   /* "pgparse.pyx":108
  *     cdef bytes stmt
- * 
+ *
  *     stmt = statement.encode('UTF-8')             # <<<<<<<<<<<<<<
  *     result = pg_query_parse(stmt)
  *     try:
@@ -3481,7 +3481,7 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
   __pyx_t_1 = 0;
 
   /* "pgparse.pyx":109
- * 
+ *
  *     stmt = statement.encode('UTF-8')
  *     result = pg_query_parse(stmt)             # <<<<<<<<<<<<<<
  *     try:
@@ -3632,7 +3632,7 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_parse_result(result)
- * 
+ *
 */
   /*finally:*/ {
     __pyx_L4_error:;
@@ -3666,8 +3666,8 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     finally:
  *         with nogil:
  *             pg_query_free_parse_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
               pg_query_free_parse_result(__pyx_v_result);
             }
@@ -3677,7 +3677,7 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_parse_result(result)
- * 
+ *
 */
             /*finally:*/ {
               /*normal exit:*/{
@@ -3714,8 +3714,8 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     finally:
  *         with nogil:
  *             pg_query_free_parse_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
             pg_query_free_parse_result(__pyx_v_result);
           }
@@ -3725,7 +3725,7 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_parse_result(result)
- * 
+ *
 */
           /*finally:*/ {
             /*normal exit:*/{
@@ -3743,8 +3743,8 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
   }
 
   /* "pgparse.pyx":97
- * 
- * 
+ *
+ *
  * def parse(statement: str) -> list[dict]:             # <<<<<<<<<<<<<<
  *     """Parse a SQL statement, returning a data structure that represents the
  *     internal PostgreSQL parse tree for the query.
@@ -3768,15 +3768,15 @@ static PyObject *__pyx_pf_7pgparse_4parse(CYTHON_UNUSED PyObject *__pyx_self, Py
 }
 
 /* "pgparse.pyx":120
- * 
- * 
+ *
+ *
  * def parse_pgsql(function: str) -> typing.List[typing.Dict]:             # <<<<<<<<<<<<<<
  *     """Parse a PL/PgSQL function, returning the internal PostgreSQL parse tree
- * 
+ *
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pgparse_7parse_pgsql(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_7parse_pgsql(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3785,7 +3785,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ); /*proto*/
 PyDoc_STRVAR(__pyx_doc_7pgparse_6parse_pgsql, "Parse a PL/PgSQL function, returning the internal PostgreSQL parse tree\n\n    :param function: The SQL function to parse\n    :raises: :py:exc:`pgparse.PGQueryError`\n\n    ");
 static PyMethodDef __pyx_mdef_7pgparse_7parse_pgsql = {"parse_pgsql", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pgparse_7parse_pgsql, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_7pgparse_6parse_pgsql};
-static PyObject *__pyx_pw_7pgparse_7parse_pgsql(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_7parse_pgsql(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3903,7 +3903,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
 
   /* "pgparse.pyx":130
  *     cdef bytes func
- * 
+ *
  *     func = function.encode('UTF-8')             # <<<<<<<<<<<<<<
  *     result = pg_query_parse_plpgsql(func)
  *     try:
@@ -3914,7 +3914,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
   __pyx_t_1 = 0;
 
   /* "pgparse.pyx":131
- * 
+ *
  *     func = function.encode('UTF-8')
  *     result = pg_query_parse_plpgsql(func)             # <<<<<<<<<<<<<<
  *     try:
@@ -4051,7 +4051,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_plpgsql_parse_result(result)
- * 
+ *
 */
   /*finally:*/ {
     __pyx_L4_error:;
@@ -4084,8 +4084,8 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
  *     finally:
  *         with nogil:
  *             pg_query_free_plpgsql_parse_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
               pg_query_free_plpgsql_parse_result(__pyx_v_result);
             }
@@ -4095,7 +4095,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_plpgsql_parse_result(result)
- * 
+ *
 */
             /*finally:*/ {
               /*normal exit:*/{
@@ -4132,8 +4132,8 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
  *     finally:
  *         with nogil:
  *             pg_query_free_plpgsql_parse_result(result)             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
             pg_query_free_plpgsql_parse_result(__pyx_v_result);
           }
@@ -4143,7 +4143,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
  *     finally:
  *         with nogil:             # <<<<<<<<<<<<<<
  *             pg_query_free_plpgsql_parse_result(result)
- * 
+ *
 */
           /*finally:*/ {
             /*normal exit:*/{
@@ -4161,11 +4161,11 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
   }
 
   /* "pgparse.pyx":120
- * 
- * 
+ *
+ *
  * def parse_pgsql(function: str) -> typing.List[typing.Dict]:             # <<<<<<<<<<<<<<
  *     """Parse a PL/PgSQL function, returning the internal PostgreSQL parse tree
- * 
+ *
 */
 
   /* function exit code */
@@ -4185,7 +4185,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
 }
 
 /* "pgparse.pyx":149
- * 
+ *
  *     """
  *     def __init__(self, message, position):             # <<<<<<<<<<<<<<
  *         self.message = message
@@ -4193,7 +4193,7 @@ static PyObject *__pyx_pf_7pgparse_6parse_pgsql(CYTHON_UNUSED PyObject *__pyx_se
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pgparse_12PGQueryError_1__init__(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_12PGQueryError_1__init__(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4201,7 +4201,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
 static PyMethodDef __pyx_mdef_7pgparse_12PGQueryError_1__init__ = {"__init__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pgparse_12PGQueryError_1__init__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pgparse_12PGQueryError_1__init__(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_12PGQueryError_1__init__(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4306,7 +4306,7 @@ static PyObject *__pyx_pf_7pgparse_12PGQueryError___init__(CYTHON_UNUSED PyObjec
  *     def __init__(self, message, position):
  *         self.message = message             # <<<<<<<<<<<<<<
  *         self.position = position
- * 
+ *
 */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_message, __pyx_v_message) < (0)) __PYX_ERR(0, 150, __pyx_L1_error)
 
@@ -4314,13 +4314,13 @@ static PyObject *__pyx_pf_7pgparse_12PGQueryError___init__(CYTHON_UNUSED PyObjec
  *     def __init__(self, message, position):
  *         self.message = message
  *         self.position = position             # <<<<<<<<<<<<<<
- * 
+ *
  *     def __str__(self):
 */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_position, __pyx_v_position) < (0)) __PYX_ERR(0, 151, __pyx_L1_error)
 
   /* "pgparse.pyx":149
- * 
+ *
  *     """
  *     def __init__(self, message, position):             # <<<<<<<<<<<<<<
  *         self.message = message
@@ -4341,13 +4341,13 @@ static PyObject *__pyx_pf_7pgparse_12PGQueryError___init__(CYTHON_UNUSED PyObjec
 
 /* "pgparse.pyx":153
  *         self.position = position
- * 
+ *
  *     def __str__(self):             # <<<<<<<<<<<<<<
  *         return '{} at position {}'.format(self.message, self.position)
 */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pgparse_12PGQueryError_3__str__(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_12PGQueryError_3__str__(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4355,7 +4355,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
 static PyMethodDef __pyx_mdef_7pgparse_12PGQueryError_3__str__ = {"__str__", (PyCFunction)(void(*)(void))(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pgparse_12PGQueryError_3__str__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pgparse_12PGQueryError_3__str__(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_7pgparse_12PGQueryError_3__str__(PyObject *__pyx_self,
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4445,7 +4445,7 @@ static PyObject *__pyx_pf_7pgparse_12PGQueryError_2__str__(CYTHON_UNUSED PyObjec
   __Pyx_RefNannySetupContext("__str__", 0);
 
   /* "pgparse.pyx":154
- * 
+ *
  *     def __str__(self):
  *         return '{} at position {}'.format(self.message, self.position)             # <<<<<<<<<<<<<<
 */
@@ -4472,7 +4472,7 @@ static PyObject *__pyx_pf_7pgparse_12PGQueryError_2__str__(CYTHON_UNUSED PyObjec
 
   /* "pgparse.pyx":153
  *         self.position = position
- * 
+ *
  *     def __str__(self):             # <<<<<<<<<<<<<<
  *         return '{} at position {}'.format(self.message, self.position)
 */
@@ -4806,7 +4806,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_pgparse(PyObject *__pyx_pyinit_mod
         Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  
+
 __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_init_runtime_version();
   if (__Pyx_check_binary_version(__PYX_LIMITED_VERSION_HEX, __Pyx_get_runtime_version(), CYTHON_COMPILING_IN_LIMITED_API) < (0)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -4843,11 +4843,11 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   /*--- Execution code ---*/
 
   /* "pgparse.pyx":7
- * 
+ *
  * """
  * import json             # <<<<<<<<<<<<<<
  * import typing
- * 
+ *
 */
   __pyx_t_1 = __Pyx_Import(__pyx_mstate_global->__pyx_n_u_json, 0, 0, NULL, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __pyx_t_2 = __pyx_t_1;
@@ -4859,8 +4859,8 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
  * """
  * import json
  * import typing             # <<<<<<<<<<<<<<
- * 
- * 
+ *
+ *
 */
   __pyx_t_1 = __Pyx_Import(__pyx_mstate_global->__pyx_n_u_typing, 0, 0, NULL, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
   __pyx_t_2 = __pyx_t_1;
@@ -4869,11 +4869,11 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pgparse.pyx":49
- * 
- * 
+ *
+ *
  * def fingerprint(statement: str) -> str:             # <<<<<<<<<<<<<<
  *     """Fingerprint a SQL statement
- * 
+ *
 */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -4890,11 +4890,11 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pgparse.pyx":75
- * 
- * 
+ *
+ *
  * def normalize(statement: str) -> str:             # <<<<<<<<<<<<<<
  *     """Normalize a SQL query, replacing values with placeholders
- * 
+ *
 */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -4911,8 +4911,8 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pgparse.pyx":97
- * 
- * 
+ *
+ *
  * def parse(statement: str) -> list[dict]:             # <<<<<<<<<<<<<<
  *     """Parse a SQL statement, returning a data structure that represents the
  *     internal PostgreSQL parse tree for the query.
@@ -4932,11 +4932,11 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pgparse.pyx":120
- * 
- * 
+ *
+ *
  * def parse_pgsql(function: str) -> typing.List[typing.Dict]:             # <<<<<<<<<<<<<<
  *     """Parse a PL/PgSQL function, returning the internal PostgreSQL parse tree
- * 
+ *
 */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -4953,11 +4953,11 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pgparse.pyx":142
- * 
- * 
+ *
+ *
  * class PGQueryError(Exception):             # <<<<<<<<<<<<<<
  *     """Raised when invalid or unsupported SQL is parsed
- * 
+ *
 */
   __pyx_t_2 = PyTuple_Pack(1, ((PyObject *)(((PyTypeObject*)PyExc_Exception)))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -4973,7 +4973,7 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pgparse.pyx":149
- * 
+ *
  *     """
  *     def __init__(self, message, position):             # <<<<<<<<<<<<<<
  *         self.message = message
@@ -4989,7 +4989,7 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
 
   /* "pgparse.pyx":153
  *         self.position = position
- * 
+ *
  *     def __str__(self):             # <<<<<<<<<<<<<<
  *         return '{} at position {}'.format(self.message, self.position)
 */
@@ -5002,11 +5002,11 @@ __Pyx_RefNannySetupContext("PyInit_pgparse", 0);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pgparse.pyx":142
- * 
- * 
+ *
+ *
  * class PGQueryError(Exception):             # <<<<<<<<<<<<<<
  *     """Raised when invalid or unsupported SQL is parsed
- * 
+ *
 */
   __pyx_t_2 = __Pyx_Py3ClassCreate(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_PGQueryError, __pyx_t_3, __pyx_t_5, NULL, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -5231,12 +5231,12 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
 static int __Pyx_InitGlobals(void) {
   /* PythonCompatibility.init */
   if (likely(__Pyx_init_co_variables() == 0)); else
-  
+
   if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L1_error)
 
   /* CommonTypesMetaclass.init */
   if (likely(__pyx_CommonTypesMetaclass_init(__pyx_m) == 0)); else
-  
+
   if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L1_error)
 
   /* CachedMethodType.init */
@@ -5250,12 +5250,12 @@ static int __Pyx_InitGlobals(void) {
       }
   } // error handling follows
   #endif
-  
+
   if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L1_error)
 
   /* CythonFunctionShared.init */
   if (likely(__pyx_CyFunction_init(__pyx_m) == 0)); else
-  
+
   if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L1_error)
 
   return 0;
