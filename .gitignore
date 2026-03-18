@@ -5,8 +5,9 @@
 *.so
 .coverage
 .idea
+.venv
 .vscode
 build/
 dist/
 env/
-docs/_build
+site/

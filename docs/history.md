@@ -1,0 +1,8 @@
+# Version History
+
+| Version | Date       | Release Notes                                                    |
+|---------|------------|------------------------------------------------------------------|
+| 0.2.0   | 2021-02-23 | Update to libpg_query 13-latest-develop, fix building in Alpine  |
+| 0.1.0   | 2019-07-09 | Initial release                                                  |
+
+More specific release information can be found on [GitHub](https://github.com/gmr/pgparse/releases)

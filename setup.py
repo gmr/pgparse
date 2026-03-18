@@ -1,41 +1,56 @@
-#!/usr/bin/env python3
 import os
+import pathlib
 import subprocess
-import sys
 import sysconfig
 
 import setuptools
-from setuptools.command import build_ext
-if os.environ.get('USE_CYTHON') in ['1', 'true', 'TRUE', 'Y']:
-    from Cython.Build import cythonize
-else:
-    cythonize = None
+import setuptools.command.build_ext
 
-LIBPG_QUERY = './libpg_query'
-LIBRARIES = ['pg_query']
+LIBPG_QUERY = 'libpg_query'
+
+libraries = ['pg_query']
 if 'musl' in sysconfig.get_config_var('BUILD_GNU_TYPE'):
-    LIBRARIES.append('execinfo')
-
-EXT_MODULES = [
-        setuptools.Extension(
-            'pgparse',
-            ['pgparse.c' if cythonize is None else 'pgparse.pyx'],
-            libraries=LIBRARIES,
-            include_dirs=[LIBPG_QUERY],
-            library_dirs=[LIBPG_QUERY])]
+    libraries.append('execinfo')
 
 
-class BuildExt(build_ext.build_ext):
+class BuildExt(setuptools.command.build_ext.build_ext):
+    """Custom build_ext that ensures libpg_query is compiled first."""
+
     def run(self):
-        return_code = subprocess.call(
-            ['make', '-C', LIBPG_QUERY, 'build'])
-        if return_code:
-            sys.stderr.write('libpg_query failed to build')
-            sys.exit(return_code)
+        libpg_query_dir = pathlib.Path(__file__).parent / LIBPG_QUERY
+        if not (libpg_query_dir / 'libpg_query.a').exists():
+            subprocess.run(  # noqa: S603
+                ['make', '-C', str(libpg_query_dir), 'build'],  # noqa: S607
+                check=True,
+            )
         super().run()
 
 
+sources = ['pgparse.pyx'] if os.getenv('USE_CYTHON') else ['pgparse.c']
+
+ext = setuptools.Extension(
+    'pgparse',
+    sources=sources,
+    include_dirs=[LIBPG_QUERY],
+    library_dirs=[LIBPG_QUERY],
+    libraries=libraries,
+    define_macros=[('CYTHON_TRACE', '1')],
+)
+
+if os.getenv('USE_CYTHON'):
+    import Cython.Build
+
+    ext_modules = Cython.Build.cythonize(
+        [ext],
+        compiler_directives={
+            'language_level': '3',
+            'linetrace': True,
+        },
+    )
+else:
+    ext_modules = [ext]
+
 setuptools.setup(
     cmdclass={'build_ext': BuildExt},
-    ext_modules=EXT_MODULES if cythonize is None else cythonize(EXT_MODULES),
-    zip_safe=False)
+    ext_modules=ext_modules,
+)

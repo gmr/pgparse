@@ -3,32 +3,80 @@ on:
   push:
     branches-ignore: ["*"]
     tags: ["*"]
+
 jobs:
-  deploy:
+  build:
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push' && github.repository == 'gmr/pgparse' && startsWith(github.event.ref, 'refs/tags')
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            cibw-archs: x86_64
+          - os: ubuntu-latest
+            cibw-archs: aarch64
+          - os: macos-13
+            cibw-archs: x86_64
+          - os: macos-14
+            cibw-archs: arm64
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up QEMU
+        if: matrix.os == 'ubuntu-latest'
+        uses: docker/setup-qemu-action@v3
+
+      - name: Install build dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git make protobuf-compiler
+
+      - name: Install build dependencies (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install protobuf
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.22.0
+        env:
+          CIBW_ARCHS: ${{ matrix.cibw-archs }}
+          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-*"
+          CIBW_SKIP: "*-win32"
+          USE_CYTHON: "1"
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.cibw-archs }}
+          path: ./wheelhouse/
+
+  publish:
+    needs: build
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'gmr/pgparse' && startsWith(github.event.ref, 'refs/tags')
-    container: python:3.9-alpine
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pgparse
+
+    permissions:
+      id-token: write
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      - name: Setup environment
-        run: apk --update add gcc git libexecinfo-dev make musl-dev
-
-      - name: Install Cython
-        run: pip3 install cython
-
-      - name: Bootstrap the project
-        run: ./bootstrap
-
-      - name: Build extension
-        run: USE_CYTHON=1 python3 setup.py build_ext --force --inplace
-
-      - name: Build package
-        run: python3 setup.py sdist
-
-      - name: Publish package
-        uses: pypa/gh-action-pypi-publish@master
+      - name: Download all wheels
+        uses: actions/download-artifact@v4
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_PASSWORD }}
+          path: dist-all
+
+      - name: Consolidate wheels
+        run: |
+          mkdir -p dist
+          find dist-all -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec cp {} dist/ \;
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

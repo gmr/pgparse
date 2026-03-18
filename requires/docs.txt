@@ -1,3 +1,0 @@
-cython
-sphinx>=2,<3
-sphinx-autodoc-typehints
