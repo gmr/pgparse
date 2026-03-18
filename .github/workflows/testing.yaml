@@ -61,8 +61,13 @@ jobs:
         include:
           - os: ubuntu-latest
             cibw-archs: x86_64
+            cibw-skip: "*-win32 *-musllinux*"
+          - os: ubuntu-latest
+            cibw-archs: x86_64
+            cibw-skip: "*-win32 *-manylinux*"
           - os: macos-14
             cibw-archs: arm64
+            cibw-skip: "*-win32"
 
     steps:
       - name: Checkout repository
@@ -87,7 +92,7 @@ jobs:
           CIBW_ARCHS: ${{ matrix.cibw-archs }}
           CIBW_BEFORE_ALL: "make -C libpg_query"
           CIBW_BUILD: "cp313-*"
-          CIBW_SKIP: "*-win32 *-musllinux*"
+          CIBW_SKIP: ${{ matrix.cibw-skip }}
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v7
