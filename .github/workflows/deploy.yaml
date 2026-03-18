@@ -15,8 +15,6 @@ jobs:
             cibw-archs: x86_64
           - os: ubuntu-latest
             cibw-archs: aarch64
-          - os: macos-13
-            cibw-archs: x86_64
           - os: macos-14
             cibw-archs: arm64
     steps:

@@ -2,6 +2,9 @@
 requires = ["setuptools>=72", "cython>=3", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+packages = []
+
 [project]
 name = "pgparse"
 version = "1.0.0"
