@@ -96,5 +96,6 @@ jobs:
 
       - name: Verify wheel
         run: |
-          uv pip install --system wheelhouse/*.whl
-          python -c "import pgparse; print(pgparse.fingerprint('SELECT 1'))"
+          uv venv /tmp/verify
+          uv pip install --python /tmp/verify wheelhouse/*.whl
+          /tmp/verify/bin/python -c "import pgparse; print(pgparse.fingerprint('SELECT 1'))"
